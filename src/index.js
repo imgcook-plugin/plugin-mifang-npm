@@ -141,6 +141,8 @@ const pluginHandler = async options => {
       }
       panelValue = replaceCssImport(panelValue, fileName);
       panelValue = replaceLocalImports(panelValue, panelImports, fileName);
+      const componentPackage = path.resolve(codeDirectory, 'component', fileName, `package.json`);
+      fs.outputFileSync(componentPackage, `{"name": "${fileName}"}`);
       fs.outputFileSync(filePath, panelValue);
       imports = collectImports(imports, panelImports);
     } catch (error) {
